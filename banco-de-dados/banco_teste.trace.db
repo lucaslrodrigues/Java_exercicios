@@ -1,0 +1,9 @@
+2023-04-05 20:48:47 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "FILME" already exists; SQL statement:
+create table filme(id int primary key auto_increment,nome varchar(45),ano_lancamento int) [42101-199]
+2023-04-05 20:57:34 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "CREATE TABLE IF NOT EXISTIS[*] FILME(ID INT PRIMARY KEY AUTO_INCREMENT,NOME VARCHAR(45),ANO_LANCAMENTO INT) "; expected "EXISTS"; SQL statement:
+create table if not existis filme(id int primary key auto_increment,nome varchar(45),ano_lancamento int) [42001-199]
+2023-04-05 21:24:46 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Value too long for column """NOME"" VARCHAR(45)": "'Bolsonaro x Lula: uma luta pelo amor escondido' (46)"; SQL statement:
+insert into filme values (?, ?, ?) [22001-199]
