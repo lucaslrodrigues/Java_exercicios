@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package lucas.projeto.individual.java.jar;
+package cli.app.sprint;
 
 /**
  *
@@ -58,7 +58,14 @@ public class Componente {
 
     @Override
     public String toString() {
-        return "Componente{" + "idComponente=" + idComponente + ", numeroChave=" + numeroChave + ", unidadeMedida=" + unidadeMedida + ", fkTipo=" + fkTipo + '}';
+        return String.format(""
+                + "Id componente: %d; Numero chave: %.2f; "
+                + "unidade de medida: %s; fkTipo: %d",
+                idComponente,
+                numeroChave,
+                unidadeMedida,
+                fkTipo
+                );
     }
     
    

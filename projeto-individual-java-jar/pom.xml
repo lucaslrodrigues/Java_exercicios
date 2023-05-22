@@ -11,6 +11,13 @@
         <maven.compiler.target>17</maven.compiler.target>
         <exec.mainClass>lucas.projeto.individual.java.jar.ProjetoIndividualJavaJar</exec.mainClass>
     </properties>
+    <repositories>
+        <repository>
+            <id>unknown-jars-temp-repo</id>
+            <name>A temporary repository created by NetBeans for libraries and jars it could not identify. Please replace the dependencies in this repository with correct ones and delete this repository.</name>
+            <url>file:${project.basedir}/lib</url>
+        </repository>
+    </repositories>
     <dependencies>
         <dependency>
             <groupId>unknown.binary</groupId>
@@ -55,7 +62,7 @@
                     </descriptorRefs>
                     <archive>
                         <manifest>
-                            <mainClass>lucas.projeto.individual.java.jar</mainClass> 
+                            <mainClass>cli.app.sprint.Main</mainClass> 
                         </manifest>
                     </archive>
                 </configuration>
@@ -71,4 +78,5 @@
             </plugin>
         </plugins>
     </build>
+    <name>cli-app-sprint</name>
 </project>

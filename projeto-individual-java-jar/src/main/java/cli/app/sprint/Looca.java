@@ -2,10 +2,15 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package lucas.projeto.individual.java.jar;
+package cli.app.sprint;
 
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.io.IOException;
 import java.util.List;
+import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 
@@ -15,6 +20,13 @@ import org.springframework.jdbc.core.JdbcTemplate;
  */
 public class Looca {
         private List<UserLogin> user;
+        private LogGenerator log;
+        
+        public Looca(List<UserLogin> user) throws IOException {
+            this.user = user;
+            this.log = new LogGenerator();
+            verificarPc();
+        }
         
         public void verificarPc() throws IOException {
         InserirMetrica im = new InserirMetrica();
@@ -46,6 +58,33 @@ public class Looca {
             im.inserirMetrica();
         } else {
             System.out.println("Computador não cadastrado");
+            receberTipoDiscoSetor();
+        }
+    }
+        
+    public void receberTipoDiscoSetor() throws IOException{
+        Boolean triger = true;
+        while (triger) {
+            Scanner leitor = new Scanner(System.in);
+            System.out.println("Qual setor em que a maquina está localizada?\n"
+                    + "Setor:");
+            String setorRecebido = leitor.nextLine();
+
+            System.out.println("Qual o tipo de disco\nDisco:");
+            String discoRecebido = leitor.nextLine();
+            
+            if (!discoRecebido.equalsIgnoreCase("ssd") && !discoRecebido.equalsIgnoreCase("hd")) {
+                System.out.println("Você inseriu um tipo invalido de disco!\n"
+                        + "Informe um tipo válido");
+            }else if (setorRecebido.equals("")){
+                
+            }else{
+                try {
+                    cadastrarPc(setorRecebido.toLowerCase(), discoRecebido.toLowerCase());
+                } catch (IOException ex) {
+                    Logger.getLogger(Looca.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
         }
     }
 
@@ -99,8 +138,7 @@ public class Looca {
 
         System.out.println("Componentes 1");
         System.out.println(componentes);
-        System.out.println("Componentes 2");
-        System.out.println(componentes2);
+//        log.generateLog(componentes.toString());
 
         Boolean validarRede = false;
         Boolean validarRam = false;

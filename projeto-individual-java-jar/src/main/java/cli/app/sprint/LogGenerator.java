@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package lucas.projeto.individual.java.jar;
+package cli.app.sprint;
 
 import java.util.Date;
 import java.text.DateFormat;
@@ -36,8 +36,8 @@ public class LogGenerator {
 	
 	public static void generateLog(String message) throws IOException {
 		
-//		Path path = Paths.get("C:\\Users\\lukas\\OneDrive\\Área de Trabalho\\logs
-		Path path = Paths.get("~/logs");
+		Path path = Paths.get("C:\\Users\\lukas\\OneDrive\\Área de Trabalho\\logs");
+//		Path path = Paths.get("~/logs");
 		
 		if(!Files.exists(path)) {
 			
@@ -45,8 +45,8 @@ public class LogGenerator {
 			
 		}
 		
-//		File log = new File("C:\\Users\\lukas\\OneDrive\\Área de Trabalho\\logs\\logs.txt");
-		File log = new File("~/logs/logs.txt");
+		File log = new File("C:\\Users\\lukas\\OneDrive\\Área de Trabalho\\logs\\logs.txt");
+//		File log = new File("~/logs/logs.txt");
 		
 		if(!log.exists()) {
 			

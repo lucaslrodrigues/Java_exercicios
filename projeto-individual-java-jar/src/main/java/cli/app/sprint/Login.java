@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package lucas.projeto.individual.java.jar;
+package cli.app.sprint;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -19,13 +19,22 @@ import org.springframework.jdbc.core.JdbcTemplate;
  * @author lukas
  */
 public class Login {
+    private String login;
+    private String senha;
     
-    private void Logar (String login, String senha) {                                         
-        Boolean verify = verificarDados(login, senha);
+    public Login(String login, String senha) {
+        this.login = login;
+        this.senha = senha;
+//        verificarDados();
+    }
+    
+    public void logar () throws IOException {
+        Boolean verify = verificarDados();
+        System.out.println("Campos preenchidos");
         
         if (verify){
             try {
-                consultaBanco(String login, String senha);
+                consultaBanco();
             } catch (IOException ex) {
                 Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -35,8 +44,8 @@ public class Login {
         
     }     
     
-    private Boolean verificarDados(String login, String senha){
-        
+    private Boolean verificarDados(){
+        System.out.println("Verificando campos digitados...");
         if ("".equals(login) || "".equals(senha)){
             System.out.println( "Você tem campos a serem preenchidos");
             return false;
@@ -46,7 +55,7 @@ public class Login {
     
     
     
-    private void consultaBanco(String login, String senha) throws IOException{
+    private void consultaBanco() throws IOException{
         
         Conection conect = new Conection();
         
@@ -59,6 +68,7 @@ public class Login {
         Integer sizeUser = user.size();
         
         if (sizeUser > 0) {
+            LogGenerator.generateLog("Entrando com o login " + login);
             Looca looca = new Looca(user);
            
         }else{

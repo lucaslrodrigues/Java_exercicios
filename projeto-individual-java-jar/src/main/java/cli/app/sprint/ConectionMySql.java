@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package lucas.projeto.individual.java.jar;
+package cli.app.sprint;
 import org.apache.commons.dbcp2.BasicDataSource;
 import org.springframework.jdbc.core.JdbcTemplate;
 /**
@@ -17,11 +17,11 @@ public class ConectionMySql {
 
         dataSource​.setDriverClassName("com.mysql.cj.jdbc.Driver");
 
-        dataSource​.setUrl("jdbc:mysql://containerDB/MonitorMind");
+        dataSource​.setUrl("jdbc:mysql://localhost/MonitorMind");
 
         dataSource​.setUsername("root");
 
-        dataSource​.setPassword("urubu100");
+        dataSource​.setPassword("1234abc@");
 
         this.connectionMySql = new JdbcTemplate(dataSource);
     }
