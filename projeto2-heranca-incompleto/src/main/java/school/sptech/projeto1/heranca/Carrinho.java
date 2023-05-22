@@ -127,7 +127,6 @@ public class Carrinho {
         for (int i = 0; i < produtos.size(); i++) {
             if (produtos.get(i) instanceof ProdutoInternacional) {
                 count ++;
-                System.out.println("Instancia: "+count);
             }
         }
         return count;
