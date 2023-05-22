@@ -17,11 +17,11 @@ public class ConectionMySql {
 
         dataSource​.setDriverClassName("com.mysql.cj.jdbc.Driver");
 
-        dataSource​.setUrl("jdbc:mysql://localhost/MonitorMind");
+        dataSource​.setUrl("jdbc:mysql://containerBD/MonitorMind");
 
         dataSource​.setUsername("root");
 
-        dataSource​.setPassword("1234abc@");
+        dataSource​.setPassword("urubu100");
 
         this.connectionMySql = new JdbcTemplate(dataSource);
     }

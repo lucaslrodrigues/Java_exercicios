@@ -28,11 +28,11 @@ public class Login {
 //        verificarDados();
     }
     
-    public void logar () throws IOException {
+    public void logar () throws IOException, InterruptedException {
         Boolean verify = verificarDados();
-        System.out.println("Campos preenchidos");
         
         if (verify){
+            System.out.println("Campos preenchidos");
             try {
                 consultaBanco();
             } catch (IOException ex) {
@@ -55,7 +55,7 @@ public class Login {
     
     
     
-    private void consultaBanco() throws IOException{
+    private void consultaBanco() throws IOException, InterruptedException{
         
         Conection conect = new Conection();
         

@@ -4,36 +4,47 @@
  */
 package cli.app.sprint;
 
-import java.util.Scanner;
-
 /**
  *
  * @author lukas
  */
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+
 
 public class Main {
-    public static void main(String[] args) throws IOException {
-        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-        
-        System.out.println("Você precisa realizar login para utilizar o serviço\n"
-                + "Informe o login e senha\n\nLogin:");
-        String loginRecebido = readLine(reader);
-        System.out.println("Senha:");
-        String senhaRecebido = readLine(reader);
-        
-        Login loginClasse = new Login(loginRecebido, senhaRecebido);
-        loginClasse.logar();
-    }
-    
-    private static String readLine(BufferedReader reader) {
-        try {
-            return reader.readLine();
+    public static void main(String[] args) throws IOException, InterruptedException {
+        Thread.sleep(30000);
+        String fileName = "my_env.txt";
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
+            String login = reader.readLine();
+            String password = reader.readLine();
+
+            // Utilize as variáveis como desejado
+            
+            ProcessBuilder processBuilder = new ProcessBuilder("rm", fileName);
+            Process process = processBuilder.start();
+            int exitCode = process.waitFor();
+
+            System.out.println("Email: " + login);
+            System.out.println("Password: " + password);
+            
+//            while (true) {
+//                Thread.sleep(10000);
+//                System.out.println("Dormindo...");
+//            }
+
+            Login loginClasse = new Login(login, password);
+            loginClasse.logar();
+            
+            
         } catch (IOException e) {
-            e.printStackTrace();
-            return null;
+            System.out.println("Erro ao ler o arquivos do diretorio /app");
         }
+        
+
     }
 }

@@ -6,6 +6,8 @@ package cli.app.sprint;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
 import java.util.List;
 import java.util.Scanner;
@@ -22,13 +24,13 @@ public class Looca {
         private List<UserLogin> user;
         private LogGenerator log;
         
-        public Looca(List<UserLogin> user) throws IOException {
+        public Looca(List<UserLogin> user) throws IOException, InterruptedException {
             this.user = user;
             this.log = new LogGenerator();
             verificarPc();
         }
         
-        public void verificarPc() throws IOException {
+        public void verificarPc() throws IOException, InterruptedException {
         InserirMetrica im = new InserirMetrica();
         Conection conexao = new Conection();
         ConectionMySql conexao2 = new ConectionMySql();
@@ -62,29 +64,20 @@ public class Looca {
         }
     }
         
-    public void receberTipoDiscoSetor() throws IOException{
-        Boolean triger = true;
-        while (triger) {
-            Scanner leitor = new Scanner(System.in);
-            System.out.println("Qual setor em que a maquina está localizada?\n"
-                    + "Setor:");
-            String setorRecebido = leitor.nextLine();
+    public void receberTipoDiscoSetor() throws IOException, InterruptedException{
+        String fileName = "config.txt";
 
-            System.out.println("Qual o tipo de disco\nDisco:");
-            String discoRecebido = leitor.nextLine();
-            
-            if (!discoRecebido.equalsIgnoreCase("ssd") && !discoRecebido.equalsIgnoreCase("hd")) {
-                System.out.println("Você inseriu um tipo invalido de disco!\n"
-                        + "Informe um tipo válido");
-            }else if (setorRecebido.equals("")){
-                
-            }else{
-                try {
-                    cadastrarPc(setorRecebido.toLowerCase(), discoRecebido.toLowerCase());
-                } catch (IOException ex) {
-                    Logger.getLogger(Looca.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
+        try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
+            String setorRecebido = reader.readLine();
+            String discoRecebido = reader.readLine();
+
+            ProcessBuilder processBuilder = new ProcessBuilder("rm", fileName);
+            Process process = processBuilder.start();
+            int exitCode = process.waitFor();
+            cadastrarPc(setorRecebido.toLowerCase(), discoRecebido.toLowerCase());
+
+        } catch (IOException e) {
+            System.out.println("Erro ao ler o arquivos do diretorio /app");
         }
     }
 
@@ -478,5 +471,8 @@ public class Looca {
         int associarArmazenamento2 = con2.update("insert into Config (fkComputador, fkComponente) values (?,?)", hostName, idArmazenamento2);
 
         System.out.println("Computador cadastrado!");
+        
+        InserirMetrica metricas = new InserirMetrica();
+        metricas.inserirMetrica();
     }
 }
