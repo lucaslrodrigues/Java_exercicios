@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package cli.app.sprint;
+package app;
 
 import java.util.Date;
 import java.text.DateFormat;
@@ -37,7 +37,7 @@ public class LogGenerator {
 	public static void generateLog(String message) throws IOException {
 		
 //		Path path = Paths.get("C:\\Users\\lukas\\OneDrive\\Área de Trabalho\\logs");
-		Path path = Paths.get("/logs");
+		Path path = Paths.get("/app/logs");
 		
 		if(!Files.exists(path)) {
 			
@@ -46,7 +46,7 @@ public class LogGenerator {
 		}
 		
 //		File log = new File("C:\\Users\\lukas\\OneDrive\\Área de Trabalho\\logs\\logs.txt");
-		File log = new File("/logs/logs.txt");
+		File log = new File("/app/logs/logs.txt");
 		
 		if(!log.exists()) {
 			
@@ -57,11 +57,40 @@ public class LogGenerator {
 		FileWriter fw = new FileWriter(log, true);
 		BufferedWriter bw = new BufferedWriter(fw);
 		
-		bw.write(getDate() + " " + message);
+		bw.write("["+ getDate() + "] [INFO] " + message);
 		bw.newLine();
 
 		bw.close();
 		fw.close();
 		
 	}
+        
+        public static void generateLogErro(String message) throws IOException {
+//		Path path = Paths.get("C:\\Users\\lukas\\OneDrive\\Área de Trabalho\\logs");
+		Path path = Paths.get("/app/logs");
+		
+		if(!Files.exists(path)) {
+			
+			Files.createDirectory(path);
+			
+		}
+		
+//		File log = new File("C:\\Users\\lukas\\OneDrive\\Área de Trabalho\\logs\\logs.txt");
+		File log = new File("/app/logs/logs.txt");
+		
+		if(!log.exists()) {
+			
+			log.createNewFile();
+		
+		}
+		
+		FileWriter fw = new FileWriter(log, true);
+		BufferedWriter bw = new BufferedWriter(fw);
+		
+		bw.write("["+ getDate() + "] [ERRO] " + message);
+		bw.newLine();
+
+		bw.close();
+		fw.close();
+        }
 }

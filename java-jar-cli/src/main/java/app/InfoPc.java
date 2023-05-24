@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package cli.app.sprint;
+package app;
 
 import com.github.britooo.looca.api.core.Looca;
 import com.github.britooo.looca.api.group.discos.Volume;
@@ -24,37 +24,11 @@ public class InfoPc {
         this.looca = new Looca();
     }
     
-//    String numeroSerial() throws IOException {
-//        BufferedReader reader = new BufferedReader(new InputStreamReader(Runtime.getRuntime().exec("wmic bios get serialnumber").getInputStream()));
-//        String line;
-//        
-//        while ((line = reader.readLine()) != null) {
-//            if (!line.startsWith("SerialNumber") && line.length() > 0) {
-//                return line.trim();
-//            }
-//        }
-//        
-//        return null;        
-//    }
-//    
-//    String numeroSerialLinux() throws IOException {
-//        BufferedReader reader = new BufferedReader(new InputStreamReader(Runtime.getRuntime().exec("sudo dmidecode -s system-serial-number").getInputStream()));
-//        String line;
-//        String serial = null;
-//        if(reader.readLine() == null){
-//            serial ="temporario";
-//        }else{
-//            serial = reader.readLine();
-//        }
-//        
-//        return serial;
-//    }
-    
-    String hostName(){
+    public String hostName(){
         return looca.getRede().getParametros().getHostName();
     }
     
-    String mac(){
+    public String mac(){
         List<RedeInterface> redes  = looca.getRede().getGrupoDeInterfaces().getInterfaces();
         
         for (RedeInterface mac : redes) {
@@ -64,11 +38,11 @@ public class InfoPc {
         return null;
     }
  
-    String sistemaOperacional() {
+    public String sistemaOperacional() {
         return looca.getSistema().getSistemaOperacional();
     }
     
-    Double frequenciaCpu() {
+    public Double frequenciaCpu() {
         Long freqReal = looca.getProcessador().getFrequencia();
         
         Double freqConvertida = (double) freqReal / 1000000000;
@@ -76,19 +50,19 @@ public class InfoPc {
         return Math.round(freqConvertida * Math.pow(10, 1)) / Math.pow(10, 1);
     }
     
-    String nomeCPU() {
+    public String nomeCPU() {
         return looca.getProcessador().getNome();
     }
     
-    Integer nucleoFisico() {
+    public Integer nucleoFisico() {
         return looca.getProcessador().getNumeroCpusFisicas();
     }
     
-    Integer nucleoLogico() {
+    public Integer nucleoLogico() {
         return looca.getProcessador().getNumeroCpusLogicas();
     }
     
-    Double qtdRam() {
+    public Double qtdRam() {
         Long qtdRamBytes = looca.getMemoria().getTotal();
         Long ramReal = qtdRamBytes / (1024 * 1024 * 1024); 
         Integer ramIdeal = null;
@@ -102,7 +76,7 @@ public class InfoPc {
         } 
     }
     
-    Double qtdArmazenamento() {
+    public Double qtdArmazenamento() {
         Long qtdArmazenamentoBytes = null;
        
         List<Volume> volumeDisco = looca.getGrupoDeDiscos().getVolumes();
@@ -121,7 +95,7 @@ public class InfoPc {
         }
     }
     
-    String tipoDisco() throws IOException {
+    public String tipoDisco() throws IOException {
         ProcessBuilder builder = new ProcessBuilder("cmd.exe", "/c", "vol c:");
         builder.redirectErrorStream(true);
         Process process = builder.start();

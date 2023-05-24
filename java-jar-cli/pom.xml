@@ -62,7 +62,7 @@
                     </descriptorRefs>
                     <archive>
                         <manifest>
-                            <mainClass>cli.app.sprint.Main</mainClass> 
+                            <mainClass>app.Main</mainClass> 
                         </manifest>
                     </archive>
                 </configuration>
@@ -78,5 +78,5 @@
             </plugin>
         </plugins>
     </build>
-    <name>cli-app-sprint</name>
+    <name>java-jar-cli</name>
 </project>

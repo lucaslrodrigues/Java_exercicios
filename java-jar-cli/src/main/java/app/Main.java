@@ -2,13 +2,12 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package cli.app.sprint;
+package app;
 
 /**
  *
  * @author lukas
  */
-import java.io.IOException;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -16,7 +15,7 @@ import java.io.IOException;
 
 public class Main {
     public static void main(String[] args) throws IOException, InterruptedException {
-        Thread.sleep(30000);
+        Thread.sleep(10000);
         String fileName = "my_env.txt";
 
         try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
@@ -43,6 +42,7 @@ public class Main {
             
         } catch (IOException e) {
             System.out.println("Erro ao ler o arquivos do diretorio /app");
+            LogGenerator.generateLogErro("Erro ao ler usuário");
         }
         
 

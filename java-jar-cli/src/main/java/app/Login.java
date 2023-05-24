@@ -2,8 +2,11 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package cli.app.sprint;
+package app;
 
+import dados.CadastroComponentes;
+import sql.Conection;
+import models.UserLogin;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -68,11 +71,13 @@ public class Login {
         Integer sizeUser = user.size();
         
         if (sizeUser > 0) {
+            LogGenerator.generateLog("Usuario logado");
             LogGenerator.generateLog("Entrando com o login " + login);
-            Looca looca = new Looca(user);
+            CadastroComponentes looca = new CadastroComponentes(user);
            
         }else{
             System.out.println("Email ou senha incorreto!");
+            LogGenerator.generateLogErro("Email ou senha incorretos");
         }
     }
 }

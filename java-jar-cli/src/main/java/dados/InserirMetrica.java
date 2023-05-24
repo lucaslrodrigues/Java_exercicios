@@ -2,8 +2,11 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package cli.app.sprint;
+package dados;
 
+import app.InfoPc;
+import sql.Conection;
+import sql.ConectionMySql;
 import com.github.britooo.looca.api.core.Looca;
 import com.github.britooo.looca.api.group.memoria.Memoria;
 import com.github.britooo.looca.api.group.discos.Volume;
@@ -189,7 +192,6 @@ public class InserirMetrica {
         new Timer().scheduleAtFixedRate(new TimerTask() {
 
             public void run() {
-                System.out.println("ok");
                 int azurePing = con.update("insert into Metrica (valor, unidade,dtCaptura,fkConfig) values(?,'ms',current_timestamp,?)",ping(),fkConfigRede()) ;
                 int azureRam = con.update("insert into Metrica (valor, unidade,dtCaptura,fkConfig) values(?,'gb',current_timestamp,?)",getUsoAtualRam(),fkConfigRam()) ;
                 int azureCpu = con.update("insert into Metrica (valor, unidade,dtCaptura,fkConfig) values(?,'%',current_timestamp,?)",getUsoAtualCpu(),fkConfigCpu()) ;
@@ -199,6 +201,7 @@ public class InserirMetrica {
                 int ram = con2.update("insert into Metrica (valor, unidade,dtCaptura,fkConfig) values(?,'gb',current_timestamp,?)",getUsoAtualRam(),fkConfigRam2()) ;
                 int cpu = con2.update("insert into Metrica (valor, unidade,dtCaptura,fkConfig) values(?,'%',current_timestamp,?)",getUsoAtualCpu(),fkConfigCpu2()) ;
                 int armazenamento = con2.update("insert into Metrica (valor, unidade,dtCaptura,fkConfig) values(?,'gb',current_timestamp,?)",getUsoAtualDisco(),fkConfigArmazenamento2()) ;
+                System.out.println("Ping: " + azurePing + "\nRam :" + azureRam + "\nCPU: " + azureCpu + "\nArmazenamento: " + azureArmazenamento);
             }
         }, 0, 10000);
     }

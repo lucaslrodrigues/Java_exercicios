@@ -2,8 +2,17 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package cli.app.sprint;
+package dados;
 
+import app.InfoPc;
+import app.LogGenerator;
+import dados.InserirMetrica;
+import sql.Conection;
+import sql.ConectionMySql;
+import models.Componente;
+import models.Computador;
+import models.Localizacao;
+import models.UserLogin;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.io.BufferedReader;
@@ -20,11 +29,11 @@ import org.springframework.jdbc.core.JdbcTemplate;
  *
  * @author lukas
  */
-public class Looca {
+public class CadastroComponentes {
         private List<UserLogin> user;
         private LogGenerator log;
         
-        public Looca(List<UserLogin> user) throws IOException, InterruptedException {
+        public CadastroComponentes(List<UserLogin> user) throws IOException, InterruptedException {
             this.user = user;
             this.log = new LogGenerator();
             verificarPc();
@@ -78,6 +87,7 @@ public class Looca {
 
         } catch (IOException e) {
             System.out.println("Erro ao ler o arquivos do diretorio /app");
+            LogGenerator.generateLog("[erro] Erro ao ler aquivos do diretorio /app");
         }
     }
 
@@ -109,6 +119,22 @@ public class Looca {
         Double qtdArmazenamento = infoPc.qtdArmazenamento();
         Integer tipoDisco = null;
         Double redeMs = 1.0;
+        
+        LogGenerator.generateLog("[menssagem] cadastrando maquinha");
+        LogGenerator.generateLog(String.format("[menssagem] hostname: %s;"
+                + "mac: %s;"
+                + "Sistema operacional: %s;"
+                + "Frequência do processador: %.2f;"
+                + "Quantidade de RAM: %.2f;"
+                + "Quantidade de armazenamento: %.2f;"
+                + "Tipo de disco: %s;", 
+                hostName,
+                mac,
+                so,
+                freqCpu,
+                qtdRam,
+                qtdArmazenamento,
+                tipoDisco));
 
         if (discoTipo.equalsIgnoreCase("ssd")) {
             tipoDisco = 4;
@@ -128,10 +154,6 @@ public class Looca {
 
         List<Componente> componentes2 = con2.query("select * from Componente;",
                 new BeanPropertyRowMapper(Componente.class));
-
-        System.out.println("Componentes 1");
-        System.out.println(componentes);
-//        log.generateLog(componentes.toString());
 
         Boolean validarRede = false;
         Boolean validarRam = false;
@@ -180,11 +202,6 @@ public class Looca {
 
         }
         
-        System.out.println("Componentes 1");
-        System.out.println(componentes);
-        System.out.println("Componentes 2");
-        System.out.println(componentes2);
-
         for (Componente comp : componentes2) {
             if (comp.getFkTipo() == 1) {
                 if (comp.getNumeroChave().equals(redeMs)) {
@@ -219,11 +236,6 @@ public class Looca {
 
         }
         
-        System.out.println("Componentes 1");
-        System.out.println(componentes);
-        System.out.println("Componentes 2");
-        System.out.println(componentes2);
-
         if (validarRede == false) {
             int linhaComponenteCpu = con.update("insert into Componente (numeroChave, unidadeMedida, fkTipo) values (?, ?, ?)",
                     redeMs,
@@ -315,11 +327,6 @@ public class Looca {
                 setor
         );
         
-        System.out.println("Componentes 1");
-        System.out.println(componentes);
-        System.out.println("Componentes 2");
-        System.out.println(componentes2);
-        
         List<Localizacao> loc = con.query("select idLocalizacao from Localizacao order by idLocalizacao desc",
                 new BeanPropertyRowMapper(Localizacao.class));
 
@@ -358,13 +365,6 @@ public class Looca {
                 fkLocalizacao2,
                 fkEmpresa
         );
-        
-        System.out.println("Componentes 1");
-        System.out.println(componentes);
-        System.out.println("Componentes 2");
-        System.out.println(componentes2);
-
-        // Fazendo associação na config
         
         List<Componente> componentesLocal = con2.query("select * from Componente;",
                 new BeanPropertyRowMapper(Componente.class));
@@ -471,6 +471,7 @@ public class Looca {
         int associarArmazenamento2 = con2.update("insert into Config (fkComputador, fkComponente) values (?,?)", hostName, idArmazenamento2);
 
         System.out.println("Computador cadastrado!");
+        LogGenerator.generateLog("computador cadastrado");
         
         InserirMetrica metricas = new InserirMetrica();
         metricas.inserirMetrica();
